@@ -4,14 +4,14 @@ class Solution {
 
         int V = graph.length;
 
-        int[] colour = new int[V];
-        Arrays.fill(colour, -1);
+        int[] color = new int[V];
+        Arrays.fill(color, -1);
 
         for (int i = 0; i < V; i++) {
 
-            if (colour[i] == -1) {
+            if (color[i] == -1) {
 
-                if (!solve(i, graph, colour)) {
+                if (!dfs(i, graph, 0, color)) {
                     return false;
                 }
             }
@@ -20,31 +20,23 @@ class Solution {
         return true;
     }
 
-    public boolean solve(int start, int[][] graph, int[] colour) {
+    public boolean dfs(int node, int[][] arr, int colour, int[] color) {
 
-        Queue<Integer> q = new LinkedList<>();
+        color[node] = colour;
 
-        q.add(start);
-        colour[start] = 0;
+        for (int it : arr[node]) {
 
-        while (!q.isEmpty()) {
+            if (color[it] == -1) {
 
-            int node = q.poll();
+                int nc = 1 - color[node];
 
-            for (int neighbour : graph[node]) {
-
-                if (colour[neighbour] == -1) {
-
-                    colour[neighbour] = 1 - colour[node];
-
-                    q.add(neighbour);
-                }
-
-                else if (colour[neighbour] == colour[node]) {
-
-                  
+                if (!dfs(it, arr, nc, color)) {
                     return false;
                 }
+            }
+
+            else if (color[it] == color[node]) {
+                return false;
             }
         }
 
