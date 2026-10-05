@@ -39,7 +39,9 @@ class Solution {
             int desti = node.reach;
             int curr = node.distance;
             int stops = node.stops;
-
+            if(desti==dst){
+                return curr;
+            }
             if(stops>k){
                 continue;
             }
@@ -55,12 +57,8 @@ class Solution {
 
            
         }
-         int ans = (int)1e9;
-         for(int i = 0; i <= k + 1; i++) {
-            ans = Math.min(ans, dist[dst][i]);
-        }
 
-        return ans == (int)1e9 ? -1 : ans;                  
+       return -1;                 
 
     }
 }
